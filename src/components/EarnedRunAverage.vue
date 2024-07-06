@@ -1,4 +1,5 @@
 <template>
+ <div class = "scrollable-container">
   <section>
     <header>Welcome to the Baseball Stats Calculator!</header>
     <img src="../img/baseball-field-night-game.jpg"/>
@@ -45,6 +46,7 @@
       </main>
     </div>
   </section>
+</div>
 </template>
 
 <script>
@@ -122,17 +124,15 @@ input[type=number] {
   display: block;
   margin: 0 auto; 
   padding: 20px;
+  height: 400px;
  } 
  .container {
   display: flex;
+
  }
 
-
-.container > div {
-    flex-basis: calc(24% - 10px); 
- 
+.scrollable-container {
+  max-height: 90vh;
+  overflow-y: auto;
 }
-
-
-
 </style>
