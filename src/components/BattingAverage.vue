@@ -1,7 +1,7 @@
 <template>
     <div class="scrollable-container-2">
     <div class="batting-average-container">
-     <h2>Batting Average Calculator:</h2>
+     <h2>Batting Average Calculator :</h2>
     </div>
     
     </div>
