@@ -27,7 +27,7 @@
 
             <section class="container">
               <div id="box3">
-                <label for="regulationInnings">Enter Total Number of Innings in Regulation Game (i.e. High School = 7 innings | College & Pro = 9):</label>
+                <label for="regulationInnings">Enter Total Number of Innings in Regulation Game (i.e. High School = 7 | College & Pro = 9):</label>
                 <input type="number" id="regulationInnings" name="regulationInnings" min="0" max="9" v-model="regulationInnings">
               </div>
             </section>
