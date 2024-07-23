@@ -2,7 +2,7 @@
  <div class = "scrollable-container">
   <section>
     <header>Welcome to the Baseball Stats Calculator!</header>
-    <img src="../img/baseball-field-night-game.jpg"/>
+    <img src="../img/baseball-istockphoto.jpg"/>
 
     <div class="baseball-stats-calculator">
       <main>

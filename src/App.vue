@@ -5,6 +5,7 @@
       <router-link to="/MyStatsView">My Stats</router-link>
     </nav>
     <router-view/> 
+    
   </div>
 </template>
 
