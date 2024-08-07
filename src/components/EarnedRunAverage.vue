@@ -2,7 +2,7 @@
  <div class = "scrollable-container">
   <section>
     <header>Welcome to the Baseball Stats Calculator!</header>
-    <img src="../img/baseball-istockphoto.jpg"/>
+    <img class="field" src="../img/baseball-istockphoto.jpg"/>
 
     <div class="baseball-stats-calculator">
       <main>
@@ -11,21 +11,21 @@
             <h2>ERA Calculator:</h2>
           </div>
           <form @submit.prevent="calculateERA">
-            <section class="container">
+            <section class="runs">
               <div id='box1'>
                 <label for="earnedRuns">Enter Total Earned Runs:</label>
                 <input type="number" id="earnedRuns" name="earnedRuns" min="0" max="1000" v-model="earnedRuns">
               </div> 
             </section>
 
-            <section class="container">
+            <section class="innings">
               <div id="box2">
                 <label for="inningsPitched">Enter Total Number of Innings Pitched:</label>
-                <input type="number" id="inningsPitched" name="inningsPitched" min="0" max="1000" v-model="inningsPitched">
+                <input type="number" id="inningsPitched" name="inningsPitched" min="0" step="0.1" v-model.number="inningsPitched">
               </div>
             </section>
 
-            <section class="container">
+            <section class="regulation">
               <div id="box3">
                 <label for="regulationInnings">Enter Total Number of Innings in Regulation Game (i.e. High School = 7 | College & Pro = 9):</label>
                 <input type="number" id="regulationInnings" name="regulationInnings" min="0" max="9" v-model="regulationInnings">
@@ -33,7 +33,7 @@
             </section>
             
             <section>
-              <div id="box4">
+              <div id="calculation">
                 <label for="result">ERA Result:</label>
                 <input type="number" id="result" readonly v-model="eraResult">
               </div>
@@ -58,24 +58,57 @@ export default {
 
   data() {
     return {
-      earnedRuns: 0,
-      inningsPitched: 0,
-      regulationInnings: 0,
-      eraResult: 0
+      earnedRuns: "",
+      inningsPitched: "",
+      regulationInnings: "",
+      eraResult: ""
     };
   },
 
   methods: {
-    calculateERA() {
-      this.eraResult = (this.earnedRuns / this.inningsPitched) * this.regulationInnings;
+   
+  calculateERA() {
+   
+    const earnedRuns = parseFloat(this.earnedRuns);
+    let inningsPitched = parseFloat(this.inningsPitched);
+    const regulationInnings = parseFloat(this.regulationInnings);
 
+   
+    if (isNaN(earnedRuns) || isNaN(inningsPitched) || isNaN(regulationInnings)) {
+      this.eraResult = "Invalid input";
+      return;
+    }
+
+   
+    const inningsArray = inningsPitched.toString().split('.');
+    if (inningsArray.length > 1) {
+   
+      const wholeInnings = parseInt(inningsArray[0], 10);
+      const fractionalPart = parseInt(inningsArray[1], 10);
+
+   
+      if (fractionalPart === 1) {
+        inningsPitched = wholeInnings + 1 / 3;
+      } else if (fractionalPart === 2) {
+        inningsPitched = wholeInnings + 2 / 3;
+      } else {
+        inningsPitched = wholeInnings; 
+      }
+    }
+
+    
+    if (inningsPitched > 0) {
+      this.eraResult = (earnedRuns / inningsPitched) * regulationInnings;
       this.eraResult = this.eraResult.toFixed(2); 
+    } else {
+      this.eraResult = "Invalid innings";
+    }
   },
   clearFields() {
-    this.earnedRuns = 0;
-    this.inningsPitched = 0;
-    this.regulationInnings = 0;
-    this.eraResult = 0;
+    this.earnedRuns = "";
+    this.inningsPitched ="";
+    this.regulationInnings = "";
+    this.eraResult = "";
   }
 }
 };
@@ -118,6 +151,7 @@ label {
 input[type=number] {
    background-color: #25a12b;
    color: white;
+   border-radius: 5px;
  }
 
  img {
@@ -126,13 +160,13 @@ input[type=number] {
   padding: 20px;
   height: 400px;
  } 
- .container {
-  display: flex;
-
- }
-
 .scrollable-container {
   max-height: 90vh;
   overflow-y: auto;
 }
+
+.field {
+  border-radius: 50px;
+}
+
 </style>
