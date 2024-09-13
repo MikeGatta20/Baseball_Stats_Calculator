@@ -160,11 +160,12 @@ input[type=number] {
   padding: 20px;
   height: 400px;
  } 
-.scrollable-container {
-  max-height: 90vh;
-  overflow-y: auto;
+ .scrollable-container {
+  max-height: 90vh; /* Ensure container doesn't exceed viewport height */
+  overflow-y: auto; /* Enable scrolling */
+  padding: 30px; /* Add padding to prevent content touching edges */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
-
 .field {
   border-radius: 50px;
 }
